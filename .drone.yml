@@ -7,7 +7,7 @@ matrix:
     - "master"
 
 build:
-  image: armhfbuild/docker:1.10.0-dind
+  image: armhfbuild/docker:1.10-dind
   privileged: true
   commands:
     - cd $$VERSION/$$ARCH
