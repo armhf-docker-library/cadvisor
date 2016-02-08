@@ -10,6 +10,7 @@ build:
   image: armhfbuild/docker:1.10-dind
   privileged: true
   commands:
+    - docker daemon --storage-driver overlay --graph /drone/docker &
     - cd $$VERSION/$$ARCH
     - IID=$(docker build --quiet --force-rm --file Dockerfile.build .)
     - CID=$(docker create $IID)
