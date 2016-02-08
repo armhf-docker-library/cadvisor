@@ -1,0 +1,8 @@
+FROM golang:1.5.3
+WORKDIR /build
+
+RUN go get -d github.com/google/cadvisor \
+  && go get github.com/tools/godep \
+  && cd $GOPATH/src/github.com/google/cadvisor \
+  && godep go build . \
+  && cp ./cadvisor /build/

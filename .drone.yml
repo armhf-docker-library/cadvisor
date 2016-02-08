@@ -1,11 +1,28 @@
 matrix:
+  ARCH:
+    - armhf
+    # - amd64
   VERSION:
+    # - "0.20.5"
     - "master"
+
+build:
+  image: armhfbuild/docker:1.10.0-dind
+  privileged: true
+  commands:
+    - cd $$VERSION/$$ARCH
+    - IID=$(docker build --quiet --force-rm --file Dockerfile.build .)
+    - CID=$(docker create $IID)
+    - docker cp $CID:/build build/
+    - docker rm --force $CID
+  when:
+    matrix:
+      ARCH: armhf
 
 publish:
   docker:
-    file: "$$VERSION/Dockerfile"
-    context: "$$VERSION"
+    file: "$$VERSION/$$ARCH/Dockerfile"
+    context: "$$VERSION/$$ARCH"
     username: $$DOCKER_USER
     email: $$DOCKER_EMAIL
     password: $$DOCKER_PASSWORD

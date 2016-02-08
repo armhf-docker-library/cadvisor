@@ -1,0 +1,11 @@
+FROM armhfbuild/golang:1.5.3-alpine
+WORKDIR /build
+
+RUN apk --update add git g++ gcc make \
+  linux-headers
+
+RUN go get -d github.com/google/cadvisor \
+  && go get github.com/tools/godep \
+  && cd $GOPATH/src/github.com/google/cadvisor \
+  && godep go build . \
+  && cp ./cadvisor /build
