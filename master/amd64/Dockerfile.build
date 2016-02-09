@@ -4,5 +4,6 @@ WORKDIR /build
 RUN go get -d github.com/google/cadvisor \
   && go get github.com/tools/godep \
   && cd $GOPATH/src/github.com/google/cadvisor \
-  && godep go build . \
-  && cp ./cadvisor /build/
+  && godep go build .
+
+CMD cp ./cadvisor /target/cadvisor
