@@ -5,7 +5,8 @@ RUN apk --update --no-cache add curl device-mapper \
     | tar -xz -C /
 
 # RUN apk add zfs-utils --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted  \
-RUN /usr/glibc/usr/bin/ldconfig /lib /usr/glibc/usr/lib \
+# RUN /usr/glibc/usr/bin/ldconfig /lib /usr/glibc/usr/lib \
+RUN /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc/usr/lib \
   && echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
 
 COPY ./cadvisor /usr/bin/cadvisor
