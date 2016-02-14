@@ -1,0 +1,9 @@
+FROM armhfbuild/golang:1.5.3-alpine
+RUN apk --update add git g++ gcc make linux-headers
+
+WORKDIR /go/src/github.com/google/cadvisor
+RUN git clone --single-branch --branch v0.20.5 https://github.com/google/cadvisor.git .
+RUN go get github.com/tools/godep
+RUN godep go build .
+
+CMD cp ./cadvisor /target/cadvisor

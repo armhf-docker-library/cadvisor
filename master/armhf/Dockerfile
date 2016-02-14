@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM armhfbuild/alpine:3.3
 
 RUN apk --update --no-cache add curl device-mapper \
   && curl -fsSL https://github.com/armhf-docker-library/glibc/releases/download/2.22/glibc-bin.tar.gz \
