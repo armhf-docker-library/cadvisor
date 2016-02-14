@@ -3,7 +3,13 @@ RUN apk --update add git g++ gcc make linux-headers
 
 # RUN go get github.com/google/cadvisor
 
-RUN go get github.com/tools/godep \
-  && godep go build -a github.com/google/cadvisor
+# RUN go get github.com/tools/godep \
+#   && godep go build -a github.com/google/cadvisor
 
-CMD cp ./bin/cadvisor /target/cadvisor
+# RUN apt-get install -y git dmsetup
+WORKDIR /go/src/github.com/google/cadvisor
+RUN git clone https://github.com/google/cadvisor.git .
+RUN go get github.com/tools/godep
+RUN godep go build .
+
+CMD cp ./cadvisor /target/cadvisor
