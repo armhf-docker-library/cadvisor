@@ -15,6 +15,7 @@ build:
     - cd $$VERSION/$$ARCH
     - docker build --tag build-image-temp --file Dockerfile.build .
     - docker run --rm --volume $PWD:/target build-image-temp
+    - cadvisor -version
   when:
     matrix:
       ARCH: armhf
