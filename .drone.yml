@@ -30,3 +30,8 @@ publish:
     tag: "$$VERSION"
     force_tag: true
     storage_driver: overlay
+
+notify:
+  slack:
+    webhook_url: $$SLACK_WEBHOOK_URL
+    # channel: armhf
