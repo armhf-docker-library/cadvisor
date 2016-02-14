@@ -10,12 +10,11 @@ build:
   image: armhfbuild/docker:1.10-dind
   privileged: true
   commands:
-    - docker daemon --storage-driver overlay --graph /drone/docker &
+    - docker daemon --storage-driver overlay &
+    - sleep 2
     - cd $$VERSION/$$ARCH
-    - IID=$(docker build --quiet --force-rm --file Dockerfile.build .)
-    - CID=$(docker create $IID /bin/true)
-    - docker cp $CID:/build build/
-    - docker rm --force $CID
+    - docker build --tag build-image-temp --file Dockerfile.build .
+    - docker run --rm --volume $PWD:/target build-image-temp
   when:
     matrix:
       ARCH: armhf
