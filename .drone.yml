@@ -34,4 +34,4 @@ publish:
 notify:
   slack:
     webhook_url: $$SLACK_WEBHOOK_URL
-    # channel: armhf
+    channel: armhf

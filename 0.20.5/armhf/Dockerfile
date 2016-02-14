@@ -5,13 +5,11 @@ RUN apk --update --no-cache add curl device-mapper \
     | tar -xz -C / \
   && ln -s /usr/glibc-compat/lib/ld-linux-armhf.so.3 /lib/ld-linux-armhf.so.3
 
-# # There is no alpine zfs-utils package for armhf yet
-# RUN apk add zfs-utils --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted  \
+COPY ./nsswitch.conf /etc/
+COPY ./ld.so.conf /usr/glibc-compat/etc/
+RUN /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc/usr/lib
 
-RUN /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc/usr/lib \
-  && echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
-
-COPY ./cadvisor /usr/bin/cadvisor
+COPY ./cadvisor /usr/bin/
 
 EXPOSE 8080
 ENTRYPOINT ["/usr/bin/cadvisor", "-logtostderr"]
