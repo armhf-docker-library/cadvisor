@@ -5,7 +5,7 @@ FROM armhfbuild/alpine:3.3
 #     | tar -xz -C / \
 #   && ln -s /usr/glibc-compat/lib/ld-linux-armhf.so.3 /lib/ld-linux-armhf.so.3
 
-RUN cd /temp \
+RUN cd /tmp \
   && curl -fsSL https://github.com/armhf-docker-library/alpine-pkg-glibc/releases/download/2.22/glibc-2.22-r8.apk \
     -o glibc.apk \
   && curl -fsSL https://github.com/armhf-docker-library/alpine-pkg-glibc/releases/download/2.22/glibc-bin-2.22-r8.apk \
