@@ -10,7 +10,7 @@ build:
   image: armhfbuild/docker:1.10-dind
   privileged: true
   commands:
-    - docker daemon --storage-driver overlay &
+    - docker daemon --storage-driver overlay  --graph /drone/docker &
     - sleep 2
     - cd $$VERSION/$$ARCH
     - docker build --tag build-image-temp --file Dockerfile.build .
@@ -22,6 +22,7 @@ build:
 
 publish:
   docker:
+    image: armhfplugins/drone-docker:docker-caching
     file: "$$VERSION/$$ARCH/Dockerfile"
     context: "$$VERSION/$$ARCH"
     username: $$DOCKER_USER
@@ -31,6 +32,10 @@ publish:
     tag: "$$VERSION"
     force_tag: true
     storage_driver: overlay
+
+cache:
+  mount:
+    - /drone/docker
 
 notify:
   slack:
