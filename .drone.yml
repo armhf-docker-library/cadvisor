@@ -3,7 +3,7 @@ matrix:
     - armhf
     # - amd64
   VERSION:
-    # - "0.20.5"
+    - "0.20.5"
     - "master"
 
 build:
